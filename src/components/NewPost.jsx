@@ -1,7 +1,9 @@
 import { db } from "@/app/db";
+import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
-export default function NewPost({ id }) {
+export default async function NewPost({ id }) {
+  const clientUser = await currentUser();
   async function handleSubmit(formData) {
     "use server";
 
@@ -16,18 +18,25 @@ export default function NewPost({ id }) {
   }
 
   return (
-    <form className="" action={handleSubmit}>
+    <form className="flex items-center gap-1" action={handleSubmit}>
+      <img
+        src={clientUser.imageUrl}
+        alt="Profile picture"
+        width="50"
+        height="50"
+        className="rounded-full"
+      />
       Title:
-      <input className="" id="title" name="title" placeholder="Title" />
+      <input className="p-2" id="title" name="title" placeholder="Title" />
       description:
-      <textarea
-        className=""
+      <input
+        className="p-2"
         id="description"
         name="description"
-        placeholder="description"
-      ></textarea>
+        placeholder="Description"
+      />
       <input type="hidden" name="id" value={id} />
-      <button className="" type="submit">
+      <button className="p-2" type="submit">
         Post!
       </button>
     </form>

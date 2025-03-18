@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { handleUserEdit } from "@/app/util";
+import { Button } from "radix-ui";
 export default function EditUser({ userId }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -21,15 +22,24 @@ export default function EditUser({ userId }) {
       <div>
         {showModal ? (
           <form
-            className="flex flex-col p-3 rounded-xl"
+            className="flex flex-col items-end gap-2"
             action={handleUserEdit}
           >
-            <label htmlFor="username">Username:</label>
-            <input id="username" name="username" required></input>
+            <div>
+              <label htmlFor="username">Username:</label>
+              <input
+                className="bg-gray-600"
+                id="username"
+                name="username"
+                required
+              ></input>
+            </div>
             <input type="hidden" name="userId" value={userId} />
-            <label htmlFor="bio">Bio:</label>
-            <textarea id="bio" name="bio" required />
-            <button type="submit" onClick={toggleEditForm}>
+            <div>
+              <label htmlFor="bio">Bio:</label>
+              <input className="bg-gray-600" id="bio" name="bio" required />
+            </div>
+            <button className="" type="submit" onClick={toggleEditForm}>
               Confirm
             </button>
           </form>
