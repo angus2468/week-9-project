@@ -1,5 +1,7 @@
 import { db } from "@/app/db";
+import DeletButton from "@/components/DeleteButton";
 import EditUser from "@/components/EditUser";
+import EditUserProfile from "@/components/EditUserProfile";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +11,7 @@ export default async function Page({ params }) {
   const user = await db.query("SELECT * FROM users WHERE id = $1", [id]);
   console.log(clientUser);
   const posts = await db.query("SELECT * FROM posts WHERE user_id = $1", [id]);
+
   return (
     <div className="flex flex-col items-center gap-4 p-4">
       <Link href="/" className="absolute top-3 left-3">
@@ -21,7 +24,7 @@ export default async function Page({ params }) {
         <p>Bio: {user.rows[0].bio}</p>
       </div>
       {user.rows[0].clerk_id === clientUser.id ? (
-        <EditUser userId={user.rows[0].clerk_id} id={id} />
+        <EditUserProfile userId={user.rows[0].clerk_id} id={id} />
       ) : (
         ""
       )}
@@ -33,6 +36,7 @@ export default async function Page({ params }) {
           >
             <h2 className="text-3xl">{post.title}</h2>
             <p>{post.description}</p>
+            <DeletButton id={post.id} />
           </div>
         ))}
       </div>

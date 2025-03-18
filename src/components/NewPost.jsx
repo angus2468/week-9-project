@@ -14,7 +14,7 @@ export default async function NewPost({ id }) {
       `INSERT INTO posts (description, user_id, title) VALUES ($1 , $2, $3)`,
       [description, id, title]
     );
-    revalidatePath("/profile");
+    revalidatePath("/");
   }
 
   return (

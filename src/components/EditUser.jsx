@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { handleUserEdit } from "@/app/util";
-import { Button } from "radix-ui";
 export default function EditUser({ userId }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -39,7 +38,7 @@ export default function EditUser({ userId }) {
               <label htmlFor="bio">Bio:</label>
               <input className="bg-gray-600" id="bio" name="bio" required />
             </div>
-            <button className="" type="submit" onClick={toggleEditForm}>
+            <button className="" type="submit">
               Confirm
             </button>
           </form>
